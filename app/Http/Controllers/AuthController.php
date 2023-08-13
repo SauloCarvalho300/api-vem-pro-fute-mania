@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use OpenApi\Annotations as OA;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @OA\Info(
@@ -60,5 +61,33 @@ class AuthController extends Controller
             //return error message
             return response()->json(['message' => 'User Registration Failed!'], 409);
         }
+    }
+
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @OA\Post(
+     *     path="/users/Login",
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function login(Request $request)
+    {
+          //validate incoming request
+        $this->validate($request, [
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only(['email', 'password']);
+
+        if (! $token = Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 }
