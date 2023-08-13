@@ -1,0 +1,24 @@
+{
+  "name": "api-vem-pro-fute-mania",
+  "version": "1.0.0",
+  "description": "## Requisitos - PHP - COMPOSER",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "database:update": "php artisan migrate",
+    "database:reset": "php artisan migrate:reset",
+    "dev": "php -S localhost:8000 -t public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DescafeinadoBR/api-vem-pro-fute-mania.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DescafeinadoBR/api-vem-pro-fute-mania/issues"
+  },
+  "homepage": "https://github.com/DescafeinadoBR/api-vem-pro-fute-mania#readme"
+}
