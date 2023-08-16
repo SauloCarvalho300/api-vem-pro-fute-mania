@@ -19,4 +19,9 @@ $router->group(['prefix' => 'users'], function () use ($router) {
 
     // Matches "/api/users
     $router->get('/list', 'UserController@allUsers');
- });
+});
+
+$router->group(['prefix' => 'players'], function () use ($router) {
+    // Matches "/api/register
+    $router->post('/', 'PlayerController@register');
+});
