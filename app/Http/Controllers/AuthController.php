@@ -7,13 +7,7 @@ use App\Models\User;
 use OpenApi\Annotations as OA;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * @OA\Info(
- *      title="Nome da Sua API",
- *      version="1.0.0",
- *      description="Descrição da sua API"
- * )
- */
+
 class AuthController extends Controller
 {
     /**

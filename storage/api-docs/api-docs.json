@@ -1,10 +1,18 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Nome da Sua API",
-        "description": "Descrição da sua API",
+        "title": "Laravel Swagger Tutorial",
+        "license": {
+            "name": "MIT"
+        },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://api.laravel-swagger-tutorial.test/",
+            "description": "API server"
+        }
+    ],
     "paths": {
         "/users/register": {
             "post": {
@@ -15,6 +23,112 @@
                         "description": "An example resource"
                     }
                 }
+            }
+        },
+        "/users/Login": {
+            "post": {
+                "summary": "Get a JWT via given credentials.",
+                "operationId": "ed4fdfb0f6dceb7230d428b61ca400f9",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/card": {
+            "get": {
+                "tags": [
+                    "Card"
+                ],
+                "summary": "Get all cards",
+                "description": "Retrieve a list of all cards",
+                "operationId": "getAllCards",
+                "responses": {
+                    "200": {
+                        "description": "Successful response with a list of cards",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Card"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "90a4f2f74659c54f06eb5c184b5ffec0",
+                "responses": {
+                    "200": {
+                        "description": "A list with cards"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Card": {
+                "title": "Card",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "player_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "game_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "time": {
+                        "type": "string",
+                        "example": "15:30"
+                    },
+                    "card_type": {
+                        "type": "string",
+                        "enum": [
+                            "Y",
+                            "R"
+                        ],
+                        "example": "Y"
+                    },
+                    "card_step": {
+                        "type": "string",
+                        "enum": [
+                            "G",
+                            "O",
+                            "Q",
+                            "S",
+                            "F"
+                        ],
+                        "example": "G"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
             }
         }
     }

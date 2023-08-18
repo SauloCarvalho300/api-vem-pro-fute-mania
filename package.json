@@ -10,6 +10,7 @@
     "database:update": "php artisan migrate",
     "database:reset": "php artisan migrate:reset",
     "jwt:secret": "php artisan jwt:secret",
+    "api:run": "php artisan swagger-lume:generate",
     "dev": "php -S localhost:8000 -t public"
   },
   "repository": {
