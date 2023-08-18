@@ -52,4 +52,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [];
     }
+
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class, 'owner_id');
+    }
 }
