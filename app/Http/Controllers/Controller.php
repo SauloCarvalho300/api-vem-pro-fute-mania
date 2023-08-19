@@ -13,12 +13,11 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * @OA\OpenApi(
  *     @OA\Info(
  *         version="1.0.0",
- *         title="Laravel Swagger Tutorial",
- *         @OA\License(name="MIT")
+ *         title="API SASS Futebol",
  *     ),
  *     @OA\Server(
  *         description="API server",
- *         url="http://api.laravel-swagger-tutorial.test/",
+ *         url="http://localhost:8000/",
  *     ),
  * )
  */

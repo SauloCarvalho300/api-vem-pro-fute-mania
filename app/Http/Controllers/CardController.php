@@ -3,67 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
 
+require_once app_path('Documentation/Cards/GetAllCards.php');
+require_once app_path('Documentation/Cards/StoreCard.php');
 class CardController extends Controller
 {
 
     /**
-     * @OA\Get(
-     *     path="/card",
-     *     operationId="getAllCards",
-     *     tags={"Card"},
-     *     summary="Get all cards",
-     *     description="Retrieve a list of all cards",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful response with a list of cards",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Card")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Bad request"
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Internal server error"
-     *     )
-     * )
-     */
-
-    /**
-     * @OA\Schema(
-     *     schema="Card",
-     *     title="Card",
-     *     @OA\Property(property="id", type="integer", format="int64", example=1),
-     *     @OA\Property(property="player_id", type="integer", format="int64", example=1),
-     *     @OA\Property(property="game_id", type="integer", format="int64", example=1),
-     *     @OA\Property(property="time", type="string", example="15:30"),
-     *     @OA\Property(property="card_type", type="string", enum={"Y", "R"}, example="Y"),
-     *     @OA\Property(property="card_step", type="string", enum={"G", "O", "Q", "S", "F"}, example="G"),
-     *     @OA\Property(property="created_at", type="string", format="date-time"),
-     *     @OA\Property(property="updated_at", type="string", format="date-time"),
-     * )
+     * @GetAllCards // Use a anotação definida no arquivo correspondente
      */
     public function index()
     {
-        $cards = Card::all();
-        return response()->json($cards);
+        try {
+            $cards = Card::all();
+            return response()->json($cards);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
-     * @OA\Post(
-     *   path="/card",
-     *   @OA\Response(
-     *     response=200,
-     *     description="A list with cards"
-     *   ),
-     * )
+     * @StoreCard // Use a anotação definida no arquivo correspondente
      */
     public function store(Request $request)
     {

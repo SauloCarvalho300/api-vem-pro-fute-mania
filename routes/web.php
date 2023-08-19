@@ -25,3 +25,9 @@ $router->group(['prefix' => 'players'], function () use ($router) {
     // Matches "/api/register
     $router->post('/', 'PlayerController@register');
 });
+
+$router->group(['prefix' => 'cards'], function () use ($router) {
+    // Matches "/api/cards
+    $router->get('/', 'CardController@index');
+    $router->post('/', 'CardController@store');
+});

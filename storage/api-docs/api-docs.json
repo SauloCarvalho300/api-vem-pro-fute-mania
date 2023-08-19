@@ -1,45 +1,20 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Laravel Swagger Tutorial",
-        "license": {
-            "name": "MIT"
-        },
+        "title": "API SASS Futebol",
         "version": "1.0.0"
     },
     "servers": [
         {
-            "url": "http://api.laravel-swagger-tutorial.test/",
+            "url": "http://localhost:8000/",
             "description": "API server"
         }
     ],
     "paths": {
-        "/users/register": {
-            "post": {
-                "summary": "Store a new user.",
-                "operationId": "587c9ad20679df0962dac5b18fe1375b",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                }
-            }
-        },
-        "/users/Login": {
-            "post": {
-                "summary": "Get a JWT via given credentials.",
-                "operationId": "ed4fdfb0f6dceb7230d428b61ca400f9",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                }
-            }
-        },
-        "/card": {
+        "/cards": {
             "get": {
                 "tags": [
-                    "Card"
+                    "Cartões"
                 ],
                 "summary": "Get all cards",
                 "description": "Retrieve a list of all cards",
@@ -67,10 +42,60 @@
                 }
             },
             "post": {
-                "operationId": "90a4f2f74659c54f06eb5c184b5ffec0",
+                "tags": [
+                    "Cartões"
+                ],
+                "summary": "Create a new card",
+                "description": "Create a new card entry",
+                "operationId": "storeCard",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CardRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Card created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/users/register": {
+            "post": {
+                "summary": "Store a new user.",
+                "operationId": "587c9ad20679df0962dac5b18fe1375b",
                 "responses": {
                     "200": {
-                        "description": "A list with cards"
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/users/Login": {
+            "post": {
+                "summary": "Get a JWT via given credentials.",
+                "operationId": "ed4fdfb0f6dceb7230d428b61ca400f9",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
                     }
                 }
             }
@@ -126,6 +151,45 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CardRequest": {
+                "title": "CardRequest",
+                "properties": {
+                    "player_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "game_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "time": {
+                        "type": "string",
+                        "example": "15:30"
+                    },
+                    "card_type": {
+                        "type": "string",
+                        "enum": [
+                            "Y",
+                            "R"
+                        ],
+                        "example": "Y"
+                    },
+                    "card_step": {
+                        "type": "string",
+                        "enum": [
+                            "G",
+                            "O",
+                            "Q",
+                            "S",
+                            "F"
+                        ],
+                        "example": "G"
                     }
                 },
                 "type": "object"
