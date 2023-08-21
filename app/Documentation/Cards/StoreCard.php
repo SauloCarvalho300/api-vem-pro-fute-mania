@@ -7,6 +7,12 @@
  *     tags={"Cartões"},
  *     summary="Create a new card",
  *     description="Create a new card entry",
+ *     properties={
+ *       {
+ *          title: "Teste",
+ *          format: "string"
+ *       } 
+ *     }
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(ref="#/components/schemas/CardRequest")

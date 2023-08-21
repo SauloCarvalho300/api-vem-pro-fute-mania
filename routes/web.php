@@ -3,31 +3,46 @@
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 
-$router->group(['prefix' => 'users'], function () use ($router) {
-    // Matches "/api/register
-    $router->post('/', 'AuthController@register');
 
-    // Matches "/api/login
-    $router->post('/login', 'AuthController@login');
+$router->group(['prefix' => 'api'], function () use ($router) {
+    
+    $router->post('auth/register', 'AuthController@register');
+    $router->post('auth/login', 'AuthController@login');
+    $router->post('workspaces', 'WorkspaceController@store');
 
-    // Matches "/api/profile
-    $router->get('profile', 'UserController@profile');
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('/', 'UserController@allUsers');
+        $router->get('/{id}', 'UserController@singleUser');
+        $router->put('/{id}', 'UserController@update');
+        $router->delete('/{id}', 'UserController@destroy');
+    });
+    
+    $router->group(['prefix' => 'players'], function () use ($router) {
+        $router->post('/', 'PlayerController@register');
+    });
+    
+    $router->group(['prefix' => 'cards'], function () use ($router) {
+        $router->get('/', 'CardController@index');
+        $router->post('/', 'CardController@store');
+        $router->get('/{id}', 'CardController@show');
+        $router->put('/{id}', 'CardController@update');
+        $router->delete('/{id}', 'CardController@destroy');
+    });
+    
 
-    // Matches "/api/users/1
-    //get one user by id
-    $router->get('users/{id}', 'UserController@singleUser');
+    $router->group(['prefix' => 'cards', 'middleware' => 'auth'], function () use ($router) {
+        $router->get('/workspaces', 'WorkspaceController@index');
+        $router->get('/workspaces/{id}', 'WorkspaceController@show');
+        $router->put('/workspaces/{id}', 'WorkspaceController@update');
+        $router->delete('/workspaces/{id}', 'WorkspaceController@destroy');
+    });
 
-    // Matches "/api/users
-    $router->get('/list', 'UserController@allUsers');
-});
+    $router->group(['prefix' => 'championships'], function () use ($router) {
+        $router->get('/', 'ChampionshipController@index');
+        $router->get('/{id}', 'ChampionshipController@show');
+        $router->post('/', 'ChampionshipController@store');
+        $router->put('/{id}', 'ChampionshipController@update');
+        $router->delete('/{id}', 'ChampionshipController@destroy');
+    });
 
-$router->group(['prefix' => 'players'], function () use ($router) {
-    // Matches "/api/register
-    $router->post('/', 'PlayerController@register');
-});
-
-$router->group(['prefix' => 'cards'], function () use ($router) {
-    // Matches "/api/cards
-    $router->get('/', 'CardController@index');
-    $router->post('/', 'CardController@store');
 });
