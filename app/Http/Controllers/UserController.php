@@ -34,7 +34,8 @@ class UserController extends Controller
      */
     public function allUsers()
     {
-         return response()->json(['users' =>  User::all()], 200);
+        $Users = User::all()->orderBy('created_at', 'desc')->simplePaginate(4);
+         return response()->json(['users' =>  $Users], 200);
     }
 
     /**
