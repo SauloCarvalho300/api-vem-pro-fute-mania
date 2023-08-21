@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -25,7 +25,8 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => bcrypt($this->faker->city()),
+            'password' => Hash::make($this->faker->city()),
+            'document_identifier' => $this->faker->iban,
             'permission' => $this->faker->jobTitle()
         ];
     }

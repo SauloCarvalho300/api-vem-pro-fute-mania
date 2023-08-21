@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use  App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -32,10 +33,11 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function allUsers()
+    public function allUsers(Request $request)
     {
-        $Users = User::all()->orderBy('created_at', 'desc')->simplePaginate(4);
-         return response()->json(['users' =>  $Users], 200);
+        $limit = $request->input('limit');
+        $Users = User::paginate($limit);
+        return response()->json(['request' => $limit, 'users' =>  $Users], 200);
     }
 
     /**

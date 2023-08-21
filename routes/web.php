@@ -5,7 +5,7 @@
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    
+
     $router->post('auth/register', 'AuthController@register');
     $router->post('auth/login', 'AuthController@login');
     $router->post('workspaces', 'WorkspaceController@store');
@@ -16,11 +16,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->put('/{id}', 'UserController@update');
         $router->delete('/{id}', 'UserController@destroy');
     });
-    
+
     $router->group(['prefix' => 'players'], function () use ($router) {
         $router->post('/', 'PlayerController@register');
     });
-    
+
     $router->group(['prefix' => 'cards'], function () use ($router) {
         $router->get('/', 'CardController@index');
         $router->post('/', 'CardController@store');
@@ -28,9 +28,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->put('/{id}', 'CardController@update');
         $router->delete('/{id}', 'CardController@destroy');
     });
-    
 
-    $router->group(['prefix' => 'cards', 'middleware' => 'auth'], function () use ($router) {
+
+    $router->group(['prefix' => 'workspaces', 'middleware' => 'auth'], function () use ($router) {
         $router->get('/workspaces', 'WorkspaceController@index');
         $router->get('/workspaces/{id}', 'WorkspaceController@show');
         $router->put('/workspaces/{id}', 'WorkspaceController@update');
