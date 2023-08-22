@@ -35,9 +35,9 @@ class UserController extends Controller
      */
     public function allUsers(Request $request)
     {
-        $limit = $request->input('limit');
+
         $Users = User::paginate($limit);
-        return response()->json(['request' => $limit, 'users' =>  $Users], 200);
+        return response()->json(['data' =>  $Users], 200);
     }
 
     /**
